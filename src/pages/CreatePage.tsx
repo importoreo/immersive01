@@ -216,9 +216,6 @@ function CoreConceptPage({ onBack, onNext }: CoreConceptPageProps) {
 
   return (
     <>
-      {/* Status Bar */}
-      <StatusBar />
-      
       {/* Header */}
       <div className="absolute top-[75px] left-0 right-0 px-4">
         <div className="flex items-center gap-4 mb-4">
@@ -936,9 +933,6 @@ function DefineCorePillarsPage({ onBack, onNext, conceptData }: { onBack: () => 
 
   return (
     <>
-      {/* Status Bar */}
-      <StatusBar />
-      
       {/* Header */}
       <div className="absolute top-[75px] left-0 right-0 px-4">
         <div className="flex items-center gap-4 mb-4">
@@ -1147,9 +1141,6 @@ function RefineExperienceParametersPage({ onBack, onNext, pillarsData }: { onBac
 
   return (
     <>
-      {/* Status Bar */}
-      <StatusBar />
-      
       {/* Header */}
       <div className="absolute top-[75px] left-0 right-0 px-4">
         <div className="flex items-center gap-4 mb-4">
@@ -1331,8 +1322,6 @@ function InitialBlueprintQualityPage({ onBack, onGenerate, parametersData }: { o
 
   return (
     <>
-      {/* Status Bar */}
-      <StatusBar />
       {/* 상단 헤더 및 진행바 */}
       <div className="absolute top-[75px] left-0 right-0 px-4 z-20">
         <div className="flex items-center gap-4 mb-4">
