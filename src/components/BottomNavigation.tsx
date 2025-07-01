@@ -38,7 +38,7 @@ export const BottomNavigation: React.FC<BottomNavigationProps> = ({
                 <IconComponent active={item.active} />
               </div>
               {item.active && (
-                <div className="absolute bottom-7 w-5 h-0.5 bg-white rounded-full"></div>
+                <div className="absolute bottom-[20px] w-5 h-0.5 bg-white rounded-full"></div>
               )}
             </div>
           );

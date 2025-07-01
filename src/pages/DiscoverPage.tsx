@@ -2,7 +2,7 @@ import React from 'react';
 import { Search, Bot, Image, Play, Camera } from 'lucide-react';
 
 export const DiscoverPage: React.FC = () => {
-  const discoverItems = [
+  const baseItems = [
     [
       { bg: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', icon: <Bot size={16} />, size: 'small' as const },
       { bg: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)', icon: <Image size={16} />, size: 'medium' as const },
@@ -19,6 +19,8 @@ export const DiscoverPage: React.FC = () => {
       { bg: 'linear-gradient(135deg, #e0c3fc 0%, #9bb5ff 100%)', icon: <Image size={16} />, size: 'large' as const }
     ]
   ];
+  // 3배로 확장
+  const discoverItems = baseItems.map(col => Array(3).fill(col).flat());
 
   const DiscoverCard = ({ backgroundImage, icon, size, onClick }: {
     backgroundImage: string;

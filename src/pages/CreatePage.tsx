@@ -232,15 +232,18 @@ function CoreConceptPage({ onBack, onNext }: CoreConceptPageProps) {
       </div>
 
       {/* Main Content */}
-      <div className="absolute top-[155px] left-0 right-0 bottom-[180px] px-4">
-        {/* Title Section */}
-        <div className="mb-8">
-          <h2 className="text-white text-2xl font-bold mb-2">
-            What is the core idea behind your world?
-          </h2>
-          <p className="text-white/60 text-sm">
-            Describe on the prompt bar or choose template
-          </p>
+      <div className="absolute top-[155px] left-0 right-0 bottom-[180px]">
+        {/* AI Insight */}
+        <div className="bg-blue-500/10 rounded-2xl p-4 border border-blue-400/20 mb-6 mx-4">
+          <div className="flex items-start gap-3">
+            <Bot size={20} className="text-blue-400 mt-0.5 flex-shrink-0" />
+            <div>
+              <p className="text-blue-400 font-medium text-sm">AI Recommendations</p>
+              <p className="text-blue-300/80 text-sm">
+                Based on your concept, I've pre-selected pillars that match your vision. Feel free to adjust them!
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* Tab Navigation */}
@@ -907,7 +910,7 @@ function DefineCorePillarsPage({ onBack, onNext, conceptData }: { onBack: () => 
       </div>
 
       {/* Main Content */}
-      <div className="absolute top-[155px] left-0 right-0 bottom-[180px] overflow-y-auto">
+      <div className="absolute top-[155px] left-0 right-0 bottom-[180px]">
         {/* AI Insight */}
         <div className="bg-blue-500/10 rounded-2xl p-4 border border-blue-400/20 mb-6 mx-4">
           <div className="flex items-start gap-3">

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Play, Star, Info, ChevronRight, X, Heart, MessageCircle, Share, Bookmark, Image, Headphones, Bot } from 'lucide-react';
+import { Play, Star, Info, ChevronRight, X, Heart, MessageCircle, Share, Bookmark, Image, Headphones, Bot, MoreHorizontal } from 'lucide-react';
 import { ExperienceData } from '../types';
 
 // Mock data
@@ -24,20 +24,7 @@ const mockExperiences: ExperienceData[] = [
     isLiked: false,
     isSaved: false,
     userAnalytics: {
-      ageGroups: [
-        { age: '18-24', percentage: 35 },
-        { age: '25-34', percentage: 42 },
-        { age: '35-44', percentage: 18 },
-        { age: '45+', percentage: 5 }
-      ],
-      demographics: [
-        { region: 'North America', percentage: 45 },
-        { region: 'Europe', percentage: 32 },
-        { region: 'Asia', percentage: 18 },
-        { region: 'Other', percentage: 5 }
-      ],
-      engagementTime: 12,
-      completionRate: 78
+      ageGroups: [], demographics: [], engagementTime: 12, completionRate: 78
     }
   },
   {
@@ -60,20 +47,7 @@ const mockExperiences: ExperienceData[] = [
     isLiked: true,
     isSaved: true,
     userAnalytics: {
-      ageGroups: [
-        { age: '18-24', percentage: 28 },
-        { age: '25-34', percentage: 38 },
-        { age: '35-44', percentage: 25 },
-        { age: '45+', percentage: 9 }
-      ],
-      demographics: [
-        { region: 'North America', percentage: 40 },
-        { region: 'Europe', percentage: 35 },
-        { region: 'Asia', percentage: 20 },
-        { region: 'Other', percentage: 5 }
-      ],
-      engagementTime: 8,
-      completionRate: 85
+      ageGroups: [], demographics: [], engagementTime: 8, completionRate: 85
     }
   },
   {
@@ -96,22 +70,78 @@ const mockExperiences: ExperienceData[] = [
     isLiked: false,
     isSaved: false,
     userAnalytics: {
-      ageGroups: [
-        { age: '18-24', percentage: 45 },
-        { age: '25-34', percentage: 35 },
-        { age: '35-44', percentage: 15 },
-        { age: '45+', percentage: 5 }
-      ],
-      demographics: [
-        { region: 'Asia', percentage: 50 },
-        { region: 'North America', percentage: 30 },
-        { region: 'Europe', percentage: 15 },
-        { region: 'Other', percentage: 5 }
-      ],
-      engagementTime: 25,
-      completionRate: 65
+      ageGroups: [], demographics: [], engagementTime: 25, completionRate: 65
     }
-  }
+  },
+  {
+    id: '4',
+    title: 'Quantum Dreams',
+    type: 'interactive-world',
+    thumbnail: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+    playCount: 5670,
+    rating: 4.5,
+    difficulty: 'Medium',
+    createdAt: '2024-01-03',
+    description: 'A surreal journey through quantum realities.',
+    tags: ['quantum', 'dream', 'science'],
+    isPublished: true,
+    revenue: 890,
+    creator: 'Dreamer',
+    creatorAvatar: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+    duration: '1 hour',
+    likes: 1200,
+    isLiked: false,
+    isSaved: false,
+    userAnalytics: {
+      ageGroups: [], demographics: [], engagementTime: 15, completionRate: 70
+    }
+  },
+  {
+    id: '5',
+    title: 'Space Explorer Bot',
+    type: 'ai-character',
+    thumbnail: 'linear-gradient(135deg, #f7971e 0%, #ffd200 100%)',
+    playCount: 11200,
+    rating: 4.7,
+    difficulty: 'Easy',
+    createdAt: '2024-01-02',
+    description: 'An AI bot for exploring the universe.',
+    tags: ['space', 'explorer', 'ai'],
+    isPublished: true,
+    revenue: 1980,
+    creator: 'AstroAI',
+    creatorAvatar: 'linear-gradient(135deg, #f7971e 0%, #ffd200 100%)',
+    duration: '30 min',
+    likes: 2100,
+    isLiked: false,
+    isSaved: false,
+    userAnalytics: {
+      ageGroups: [], demographics: [], engagementTime: 10, completionRate: 80
+    }
+  },
+  {
+    id: '6',
+    title: 'Underwater Adventure',
+    type: 'interactive-world',
+    thumbnail: 'linear-gradient(135deg, #cfd9df 0%, #e2ebf0 100%)',
+    playCount: 7850,
+    rating: 4.3,
+    difficulty: 'Medium',
+    createdAt: '2024-01-01',
+    description: 'Dive into the depths and discover the secrets of the ocean.',
+    tags: ['underwater', 'adventure', 'ocean'],
+    isPublished: true,
+    revenue: 1340,
+    creator: 'AquaMaster',
+    creatorAvatar: 'linear-gradient(135deg, #cfd9df 0%, #e2ebf0 100%)',
+    duration: '1 hour',
+    likes: 980,
+    isLiked: false,
+    isSaved: false,
+    userAnalytics: {
+      ageGroups: [], demographics: [], engagementTime: 9, completionRate: 75
+    }
+  },
 ];
 
 // Component: Experience Detail Modal
@@ -160,8 +190,8 @@ function ExperienceDetailModal({ experience, onClose }: ExperienceDetailModalPro
   };
 
   return (
-    <div className="absolute inset-0 bg-black/90 backdrop-blur-lg z-50 flex items-center justify-center p-4">
-      <div className="bg-white/10 backdrop-blur-xl rounded-2xl border border-white/20 w-full max-w-[360px] max-h-[600px] overflow-hidden">
+    <div className="absolute inset-0 bg-black/40 backdrop-blur-lg z-50 flex items-center justify-center p-4">
+      <div className="bg-[#18181c] backdrop-blur-xl rounded-2xl border border-white/20 w-full max-w-[360px] max-h-[600px] overflow-y-auto">
         <div className="flex items-center justify-between p-4 border-b border-white/20">
           <button onClick={onClose} className="text-white/60 hover:text-white">
             <X size={24} />
@@ -171,9 +201,7 @@ function ExperienceDetailModal({ experience, onClose }: ExperienceDetailModalPro
             <span className="text-white/80 text-sm capitalize">{experience.type.replace('-', ' ')}</span>
           </div>
           <button className="text-white/60 hover:text-white">
-            <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center">
-              <div className="w-1 h-1 bg-white/60 rounded-full"></div>
-            </div>
+            <MoreHorizontal size={22} className="text-white/60" />
           </button>
         </div>
 
@@ -260,13 +288,11 @@ function ExperienceDetailModal({ experience, onClose }: ExperienceDetailModalPro
           </div>
 
           {experience.description && (
-            <div className="mb-4">
-              <p className="text-white/80 text-sm leading-relaxed">{experience.description}</p>
-            </div>
+            <p className="text-white/80 text-sm leading-relaxed mb-4">{experience.description}</p>
           )}
 
           {experience.tags && experience.tags.length > 0 && (
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2 mb-[-20px]">
               {experience.tags.map((tag, index) => (
                 <span key={index} className="px-2 py-1 bg-white/10 rounded-full text-white/70 text-xs">
                   #{tag}
@@ -276,10 +302,10 @@ function ExperienceDetailModal({ experience, onClose }: ExperienceDetailModalPro
           )}
         </div>
 
-        <div className="p-4 border-t border-white/20">
+        <div className="m-6 pt-0 border-t border-white/20">
           <button
             onClick={handlePlay}
-            className="w-full bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white py-3 px-4 rounded-xl font-semibold transition-all transform hover:scale-[1.02] flex items-center justify-center gap-2"
+            className="w-full bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white py-3 px-4 rounded-xl font-semibold transition-all transform hover:scale-[1.02] flex items-center justify-center gap-2 mt-4 mb-4"
           >
             <Play size={20} />
             Play Experience
@@ -366,7 +392,7 @@ function ExperienceRow({ title, experiences, onExperienceClick, size = 'normal' 
         <ChevronRight size={20} className="text-white/60" />
       </div>
       
-      <div className="flex gap-3 px-4 overflow-x-auto scrollbar-hide">
+      <div className="flex gap-3 px-4 overflow-x-auto overflow-y-hidden scrollbar-hide">
         {experiences.map((experience) => (
           <ExperienceCard
             key={experience.id}
@@ -437,11 +463,11 @@ function HeroSection({ featuredExperience, onPlay, onInfo }: HeroSectionProps) {
 export const FeedPage: React.FC = () => {
   const [selectedExperience, setSelectedExperience] = useState<ExperienceData | null>(null);
 
-  const trendingExperiences = [...mockExperiences.slice(0, 3)];
-  const newReleases = [...mockExperiences.slice(0, 3)];
-  const popularAICharacters = mockExperiences.filter(exp => exp.type === 'ai-character');
-  const interactiveWorlds = mockExperiences.filter(exp => exp.type === 'interactive-world');
-  const visualStories = mockExperiences.filter(exp => exp.type === 'visual-story');
+  const trendingExperiences = [...mockExperiences.slice(0, 6)];
+  const newReleases = [...mockExperiences.slice(0, 6)];
+  const popularAICharacters = mockExperiences.filter(exp => exp.type === 'ai-character').slice(0, 6);
+  const interactiveWorlds = mockExperiences.filter(exp => exp.type === 'interactive-world').slice(0, 6);
+  const visualStories = mockExperiences.filter(exp => exp.type === 'visual-story').slice(0, 6);
   
   const featuredExperience = mockExperiences[0];
 
@@ -475,31 +501,35 @@ export const FeedPage: React.FC = () => {
             title="Trending Now"
             experiences={trendingExperiences}
             onExperienceClick={handleExperienceClick}
-            size="large"
+            size="normal"
           />
 
           <ExperienceRow
             title="New Releases"
             experiences={newReleases}
             onExperienceClick={handleExperienceClick}
+            size="normal"
           />
 
           <ExperienceRow
             title="Popular AI Characters"
             experiences={popularAICharacters}
             onExperienceClick={handleExperienceClick}
+            size="normal"
           />
 
           <ExperienceRow
             title="Interactive Worlds"
             experiences={interactiveWorlds}
             onExperienceClick={handleExperienceClick}
+            size="normal"
           />
 
           <ExperienceRow
             title="Visual Stories"
             experiences={visualStories}
             onExperienceClick={handleExperienceClick}
+            size="normal"
           />
         </div>
       </div>

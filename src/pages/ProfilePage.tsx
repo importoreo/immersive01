@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Settings, Play, Star, Image, Headphones, Bot, ChevronLeft, X, Heart, MessageCircle, Share, Bookmark, Save, DollarSign } from 'lucide-react';
+import { Settings, Play, Star, Image, Headphones, Bot, ChevronLeft, X, Heart, MessageCircle, Share, Bookmark, Save, DollarSign, Zap, FileText, TrendingUp, BarChart2, MoreHorizontal } from 'lucide-react';
 import { ExperienceData, UserProfile } from '../types';
 
 // Mock data
@@ -93,6 +93,58 @@ const mockExperiences: ExperienceData[] = [
       engagementTime: 25,
       completionRate: 65
     }
+  },
+  {
+    id: '4',
+    title: 'Quantum Dreams',
+    type: 'interactive-world',
+    thumbnail: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+    playCount: 5670,
+    rating: 4.5,
+    difficulty: 'Medium',
+    createdAt: '2024-01-03',
+    description: 'A surreal journey through quantum realities.',
+    tags: ['quantum', 'dream', 'science'],
+    isPublished: true,
+    revenue: 890,
+    creator: 'Dreamer',
+    creatorAvatar: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+    duration: '1 hour',
+    likes: 1200,
+    isLiked: false,
+    isSaved: false,
+    userAnalytics: {
+      ageGroups: [],
+      demographics: [],
+      engagementTime: 15,
+      completionRate: 70
+    }
+  },
+  {
+    id: '5',
+    title: 'Space Explorer Bot',
+    type: 'ai-character',
+    thumbnail: 'linear-gradient(135deg, #f7971e 0%, #ffd200 100%)',
+    playCount: 11200,
+    rating: 4.7,
+    difficulty: 'Easy',
+    createdAt: '2024-01-02',
+    description: 'An AI bot for exploring the universe.',
+    tags: ['space', 'explorer', 'ai'],
+    isPublished: true,
+    revenue: 1980,
+    creator: 'AstroAI',
+    creatorAvatar: 'linear-gradient(135deg, #f7971e 0%, #ffd200 100%)',
+    duration: '30 min',
+    likes: 2100,
+    isLiked: false,
+    isSaved: false,
+    userAnalytics: {
+      ageGroups: [],
+      demographics: [],
+      engagementTime: 10,
+      completionRate: 80
+    }
   }
 ];
 
@@ -153,9 +205,7 @@ function ExperienceDetailModal({ experience, onClose }: ExperienceDetailModalPro
             <span className="text-white/80 text-sm capitalize">{experience.type.replace('-', ' ')}</span>
           </div>
           <button className="text-white/60 hover:text-white">
-            <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center">
-              <div className="w-1 h-1 bg-white/60 rounded-full"></div>
-            </div>
+            <MoreHorizontal size={22} className="text-white/60" />
           </button>
         </div>
 
@@ -295,7 +345,7 @@ function SettingsModal({ userProfile, experiences, onClose, onSave }: SettingsMo
   };
 
   return (
-    <div className="absolute inset-0 bg-black/80 backdrop-blur-lg z-50 flex items-start justify-center pt-16">
+    <div className="absolute inset-0 bg-black/40 backdrop-blur-lg z-50 flex items-start justify-center pt-16">
       <div className="bg-white/10 backdrop-blur-xl rounded-2xl border border-white/20 w-[360px] max-h-[700px] overflow-hidden">
         <div className="flex items-center justify-between p-4 border-b border-white/20">
           <button onClick={onClose} className="text-white/60 hover:text-white">
@@ -356,21 +406,42 @@ function SettingsModal({ userProfile, experiences, onClose, onSave }: SettingsMo
               </div>
 
               <div>
-                <label className="block text-white/70 text-sm mb-2">Display Name</label>
+                <label className="block text-white/70 text-xs mb-1">Display Name</label>
                 <input
                   type="text"
                   value={editedProfile.displayName}
                   onChange={(e) => setEditedProfile(prev => ({ ...prev, displayName: e.target.value }))}
-                  className="w-full bg-white/5 border border-white/20 rounded-lg px-3 py-2 text-white placeholder-white/40 focus:outline-none focus:border-blue-400"
+                  className="w-full bg-white/5 border border-white/20 rounded-md px-2 py-1.5 text-sm text-white placeholder-white/40 focus:outline-none focus:border-blue-400"
                 />
               </div>
 
               <div>
-                <label className="block text-white/70 text-sm mb-2">Bio</label>
+                <label className="block text-white/70 text-xs mb-1">Username</label>
+                <input
+                  type="text"
+                  value={editedProfile.username}
+                  onChange={(e) => setEditedProfile(prev => ({ ...prev, username: e.target.value }))}
+                  className="w-full bg-white/5 border border-white/20 rounded-md px-2 py-1.5 text-sm text-white placeholder-white/40 focus:outline-none focus:border-blue-400"
+                />
+              </div>
+
+              <div>
+                <label className="block text-white/70 text-xs mb-1">Bio</label>
                 <textarea
                   value={editedProfile.bio}
                   onChange={(e) => setEditedProfile(prev => ({ ...prev, bio: e.target.value }))}
-                  className="w-full bg-white/5 border border-white/20 rounded-lg px-3 py-2 text-white placeholder-white/40 focus:outline-none focus:border-blue-400 h-20 resize-none"
+                  className="w-full bg-white/5 border border-white/20 rounded-md px-2 py-1.5 text-sm text-white placeholder-white/40 focus:outline-none focus:border-blue-400 h-20 resize-none"
+                />
+              </div>
+
+              <div>
+                <label className="block text-white/70 text-xs mb-1">Interests</label>
+                <input
+                  type="text"
+                  value={editedProfile.interests?.join(', ') || ''}
+                  onChange={(e) => setEditedProfile(prev => ({ ...prev, interests: e.target.value.split(',').map(s => s.trim()).filter(Boolean) }))}
+                  className="w-full bg-white/5 border border-white/20 rounded-md px-2 py-1.5 text-sm text-white placeholder-white/40 focus:outline-none focus:border-blue-400"
+                  placeholder="AI, VR, Storytelling, Gaming, Future Tech"
                 />
               </div>
 
@@ -383,35 +454,135 @@ function SettingsModal({ userProfile, experiences, onClose, onSave }: SettingsMo
               </button>
             </div>
           ) : activeTab === 'analytics' ? (
-            <div className="p-4 space-y-6">
+            <div className="p-4 space-y-5">
+              {/* Creator Profile */}
+              <div className="bg-white/5 rounded-xl p-4 border border-white/10 mb-2">
+                <div className="flex items-center gap-3 mb-1">
+                  <span className="bg-white/10 rounded-full p-2"><Bot size={20} className="text-white" /></span>
+                  <div>
+                    <p className="text-white font-semibold text-sm">Creator Profile</p>
+                    <p className="text-white/80 text-xs">{userProfile.displayName}</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3 mt-2">
+                  <span className="bg-pink-500/20 rounded-full p-2"><Headphones size={18} className="text-pink-400" /></span>
+                  <div>
+                    <p className="text-white font-semibold text-sm">World Builder</p>
+                    <p className="text-white/60 text-xs">You create mostly interactive world experiences</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* 2x2 통계 카드 */}
               <div className="grid grid-cols-2 gap-3">
-                <div className="bg-white/5 rounded-lg p-3 border border-white/10">
+                <div className="bg-white/5 rounded-lg p-3 border border-white/10 flex flex-col items-start">
                   <div className="flex items-center gap-2 mb-1">
                     <Play size={16} className="text-blue-400" />
-                    <span className="text-white/60 text-sm">Total Plays</span>
+                    <span className="text-white/60 text-xs">Total Plays</span>
                   </div>
-                  <p className="text-white font-semibold text-lg">{totalPlays.toLocaleString()}</p>
+                  <p className="text-white font-bold text-lg">{totalPlays.toLocaleString()}</p>
                 </div>
-                <div className="bg-white/5 rounded-lg p-3 border border-white/10">
+                <div className="bg-white/5 rounded-lg p-3 border border-white/10 flex flex-col items-start">
                   <div className="flex items-center gap-2 mb-1">
                     <Star size={16} className="text-yellow-400" />
-                    <span className="text-white/60 text-sm">Avg Rating</span>
+                    <span className="text-white/60 text-xs">Avg Rating</span>
                   </div>
-                  <p className="text-white font-semibold text-lg">{avgRating.toFixed(1)}</p>
+                  <p className="text-white font-bold text-lg">{avgRating.toFixed(1)}</p>
+                </div>
+                <div className="bg-white/5 rounded-lg p-3 border border-white/10 flex flex-col items-start">
+                  <div className="flex items-center gap-2 mb-1">
+                    <Zap size={16} className="text-green-400" />
+                    <span className="text-white/60 text-xs">Published</span>
+                  </div>
+                  <p className="text-white font-bold text-lg">{publishedExperiences.length}</p>
+                </div>
+                <div className="bg-white/5 rounded-lg p-3 border border-white/10 flex flex-col items-start">
+                  <div className="flex items-center gap-2 mb-1">
+                    <FileText size={16} className="text-gray-400" />
+                    <span className="text-white/60 text-xs">Drafts</span>
+                  </div>
+                  <p className="text-white font-bold text-lg">{experiences.filter(exp => !exp.isPublished).length}</p>
+                </div>
+              </div>
+
+              {/* Most Popular Experience */}
+              <div className="bg-white/5 rounded-xl p-4 border border-white/10">
+                <p className="text-white font-semibold mb-2 flex items-center gap-2"><TrendingUp size={18} className="text-pink-400" /> Most Popular Experience</p>
+                {publishedExperiences.length > 0 && (
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 rounded-lg" style={{backgroundImage: publishedExperiences.reduce((a, b) => a.playCount > b.playCount ? a : b).thumbnail, backgroundSize: 'cover', backgroundPosition: 'center'}} />
+                    <div>
+                      <p className="text-white font-bold text-sm">{publishedExperiences.reduce((a, b) => a.playCount > b.playCount ? a : b).title}</p>
+                      <p className="text-white/60 text-xs">{publishedExperiences.reduce((a, b) => a.playCount > b.playCount ? a : b).playCount.toLocaleString()} plays</p>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Your Play Preferences */}
+              <div className="bg-white/5 rounded-xl p-4 border border-white/10">
+                <p className="text-white font-semibold mb-2 flex items-center gap-2"><BarChart2 size={18} className="text-blue-400" /> Your Play Preferences</p>
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between text-xs mb-1">
+                    <span className="text-white/80">AI Characters</span>
+                    <span className="text-blue-400 font-bold">45%</span>
+                  </div>
+                  <div className="w-full h-2 bg-white/10 rounded-full mb-2"><div className="h-2 bg-blue-400 rounded-full" style={{width: '45%'}} /></div>
+                  <div className="flex items-center justify-between text-xs mb-1">
+                    <span className="text-white/80">Interactive Worlds</span>
+                    <span className="text-pink-400 font-bold">32%</span>
+                  </div>
+                  <div className="w-full h-2 bg-white/10 rounded-full mb-2"><div className="h-2 bg-pink-400 rounded-full" style={{width: '32%'}} /></div>
+                  <div className="flex items-center justify-between text-xs mb-1">
+                    <span className="text-white/80">Visual Stories</span>
+                    <span className="text-purple-400 font-bold">23%</span>
+                  </div>
+                  <div className="w-full h-2 bg-white/10 rounded-full"><div className="h-2 bg-purple-400 rounded-full" style={{width: '23%'}} /></div>
                 </div>
               </div>
             </div>
           ) : (
-            <div className="p-4 space-y-6">
-              <div className="bg-gradient-to-r from-green-500/20 to-emerald-500/20 rounded-xl p-4 border border-green-400/20">
-                <h3 className="text-white font-semibold mb-2 flex items-center gap-2">
-                  <DollarSign size={18} className="text-green-400" />
-                  Monthly Revenue
-                </h3>
-                <p className="text-green-400 text-2xl font-bold">${totalRevenue.toLocaleString()}</p>
-                <p className="text-white/60 text-sm mt-1">
-                  +15% from last month
+            <div className="p-4 space-y-5">
+              {/* Monthly Revenue */}
+              <div className="bg-green-900/80 rounded-xl p-4 border border-green-700 mb-2">
+                <p className="text-green-200 font-semibold text-sm flex items-center gap-2 mb-1">
+                  <DollarSign size={20} className="text-green-300" /> Monthly Revenue
                 </p>
+                <p className="text-green-400 text-3xl font-bold">${totalRevenue.toLocaleString()}</p>
+                <p className="text-green-300 text-xs mt-1">+15% from last month</p>
+              </div>
+
+              {/* Experience Revenue */}
+              <div className="bg-white/5 rounded-xl p-4 border border-white/10 mb-2">
+                <p className="text-white font-semibold mb-3">Experience Revenue</p>
+                <div className="space-y-3">
+                  {publishedExperiences.map(exp => (
+                    <div key={exp.id} className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-lg" style={{backgroundImage: exp.thumbnail, backgroundSize: 'cover', backgroundPosition: 'center'}} />
+                        <div>
+                          <p className="text-white font-bold text-sm leading-tight">{exp.title}</p>
+                          <p className="text-white/60 text-xs">{exp.playCount.toLocaleString()} plays</p>
+                        </div>
+                      </div>
+                      <span className="text-green-400 font-bold text-lg">${exp.revenue?.toLocaleString()}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Top Revenue Generator */}
+              <div className="bg-white/5 rounded-xl p-4 border border-white/10">
+                <p className="text-yellow-400 font-semibold mb-2 flex items-center gap-2"><Star size={18} className="text-yellow-400" /> Top Revenue Generator</p>
+                {publishedExperiences.length > 0 && (
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 rounded-lg" style={{backgroundImage: publishedExperiences.reduce((a, b) => (a.revenue || 0) > (b.revenue || 0) ? a : b).thumbnail, backgroundSize: 'cover', backgroundPosition: 'center'}} />
+                    <div>
+                      <p className="text-white font-bold text-sm">{publishedExperiences.reduce((a, b) => (a.revenue || 0) > (b.revenue || 0) ? a : b).title}</p>
+                      <p className="text-green-400 font-bold text-base">${publishedExperiences.reduce((a, b) => (a.revenue || 0) > (b.revenue || 0) ? a : b).revenue?.toLocaleString()}/month</p>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           )}
@@ -536,8 +707,11 @@ export const ProfilePage: React.FC = () => {
       </div>
 
       <div className="absolute top-[340px] left-0 right-0 bottom-[114px] overflow-y-auto px-4">
-        <div className="grid grid-cols-3 gap-2">
-          {mockExperiences.map((experience) => (
+        <div className="grid grid-cols-3 gap-2 mt-8">
+          {[
+            ...mockExperiences.filter(exp => !exp.isPublished),
+            ...mockExperiences.filter(exp => exp.isPublished)
+          ].map((experience) => (
             <ProfileExperienceCard
               key={experience.id}
               experience={experience}
