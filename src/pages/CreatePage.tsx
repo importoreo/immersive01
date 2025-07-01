@@ -490,19 +490,81 @@ function CustomFoundationModal({ isOpen, onClose, onConfirm, config, setConfig, 
 }) {
   if (!isOpen) return null;
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
-      <div className="bg-white rounded-xl p-6 w-80 relative">
-        <button className="absolute top-2 right-2" onClick={onClose}><X size={20} /></button>
-        <h2 className="text-lg font-bold mb-4">Custom Foundation</h2>
-        <div className="space-y-2">
-          <label>Character Portraits: <input type="number" min={0} max={10} value={config.characterPortraits} onChange={e => setConfig({ ...config, characterPortraits: +e.target.value })} /></label>
-          <label>Environment Art: <input type="number" min={0} max={15} value={config.environmentArt} onChange={e => setConfig({ ...config, environmentArt: +e.target.value })} /></label>
-          <label>Audio Tracks: <input type="number" min={0} max={8} value={config.audioTracks} onChange={e => setConfig({ ...config, audioTracks: +e.target.value })} /></label>
-          <label>Story Beats: <input type="number" min={5} max={25} value={config.storyBeats} onChange={e => setConfig({ ...config, storyBeats: +e.target.value })} /></label>
-          <label>Interactive Elements: <input type="number" min={0} max={20} value={config.interactiveElements} onChange={e => setConfig({ ...config, interactiveElements: +e.target.value })} /></label>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80">
+      <div className="bg-[#18181b] rounded-3xl shadow-2xl w-full max-w-[380px] p-5 relative flex flex-col max-h-[90vh] overflow-y-auto">
+        {/* Close Button */}
+        <button className="absolute top-4 right-4 text-white/60 hover:text-white" onClick={onClose}><X size={24} /></button>
+        <h2 className="text-xl font-bold text-white mb-6">Custom Foundation</h2>
+        <div className="flex flex-col gap-6">
+          {/* Character Portraits */}
+          <div>
+            <div className="flex justify-between items-center mb-2 text-base">
+              <span className="text-white font-medium">Character Portraits</span>
+              <span className="text-white/70 font-semibold w-6 text-right">{config.characterPortraits}</span>
+            </div>
+            <input type="range" min={0} max={10} value={config.characterPortraits} onChange={e => setConfig({ ...config, characterPortraits: +e.target.value })} className="w-full accent-blue-500" />
+            <div className="flex justify-between text-xs text-white/40 mt-1">
+              <span>0</span><span>10</span>
+            </div>
+          </div>
+          {/* Environment Art */}
+          <div>
+            <div className="flex justify-between items-center mb-2 text-base">
+              <span className="text-white font-medium">Environment Art</span>
+              <span className="text-white/70 font-semibold w-6 text-right">{config.environmentArt}</span>
+            </div>
+            <input type="range" min={0} max={15} value={config.environmentArt} onChange={e => setConfig({ ...config, environmentArt: +e.target.value })} className="w-full accent-blue-500" />
+            <div className="flex justify-between text-xs text-white/40 mt-1">
+              <span>0</span><span>15</span>
+            </div>
+          </div>
+          {/* Audio Tracks */}
+          <div>
+            <div className="flex justify-between items-center mb-2 text-base">
+              <span className="text-white font-medium">Audio Tracks</span>
+              <span className="text-white/70 font-semibold w-6 text-right">{config.audioTracks}</span>
+            </div>
+            <input type="range" min={0} max={8} value={config.audioTracks} onChange={e => setConfig({ ...config, audioTracks: +e.target.value })} className="w-full accent-blue-500" />
+            <div className="flex justify-between text-xs text-white/40 mt-1">
+              <span>0</span><span>8</span>
+            </div>
+          </div>
+          {/* Story Beats */}
+          <div>
+            <div className="flex justify-between items-center mb-2 text-base">
+              <span className="text-white font-medium">Story Beats</span>
+              <span className="text-white/70 font-semibold w-6 text-right">{config.storyBeats}</span>
+            </div>
+            <input type="range" min={5} max={25} value={config.storyBeats} onChange={e => setConfig({ ...config, storyBeats: +e.target.value })} className="w-full accent-blue-500" />
+            <div className="flex justify-between text-xs text-white/40 mt-1">
+              <span>5</span><span>25</span>
+            </div>
+          </div>
+          {/* Interactive Elements */}
+          <div>
+            <div className="flex justify-between items-center mb-2 text-base">
+              <span className="text-white font-medium">Interactive Elements</span>
+              <span className="text-white/70 font-semibold w-6 text-right">{config.interactiveElements}</span>
+            </div>
+            <input type="range" min={0} max={20} value={config.interactiveElements} onChange={e => setConfig({ ...config, interactiveElements: +e.target.value })} className="w-full accent-blue-500" />
+            <div className="flex justify-between text-xs text-white/40 mt-1">
+              <span>0</span><span>20</span>
+            </div>
+          </div>
         </div>
-        <div className="mt-4">Total Cost: <span className="font-bold">{cost} Gems</span></div>
-        <button className="w-full mt-4 py-2 bg-purple-500 text-white rounded" onClick={onConfirm}>Confirm</button>
+        {/* Total Cost */}
+        <div className="mt-6 mb-4">
+          <div className="bg-zinc-900 rounded-2xl px-4 py-3 flex items-center justify-between">
+            <span className="text-white/80 font-semibold text-base">Total Cost</span>
+            <span className="text-yellow-400 font-bold text-xl">{cost}</span>
+            <span className="text-white/40 ml-1">Gems</span>
+          </div>
+        </div>
+        {/* Buttons */}
+        <div className="flex gap-3">
+          <button className="flex-1 py-2 rounded-xl bg-zinc-800 text-white/80 font-semibold text-base" onClick={onClose}>Cancel</button>
+          <button className="flex-1 py-2 rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold text-base" onClick={onConfirm}>Confirm</button>
+        </div>
       </div>
     </div>
   );
@@ -1460,15 +1522,11 @@ function InitialBlueprintQualityPage({ onBack, onGenerate, parametersData }: { o
       </div>
       {/* Buy Gems Modal */}
       <BuyGemsModal
-        open={showBuyGemsModal}
+        isOpen={showBuyGemsModal}
         onClose={() => setShowBuyGemsModal(false)}
-        onSubscribe={(plan: string) => {
+        onPurchase={(type, planId) => {
           setShowBuyGemsModal(false);
-          // 구독 로직 연결 필요시 여기에 추가
-        }}
-        onBuy={(pack: string) => {
-          setShowBuyGemsModal(false);
-          // 구매 로직 연결 필요시 여기에 추가
+          // 실제 구매/구독 로직 필요시 여기에 추가
         }}
       />
       {/* Custom Foundation Modal */}
