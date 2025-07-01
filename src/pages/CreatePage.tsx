@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Image, Headphones, Bot, ChevronLeft, ChevronRight, X, PenTool, Sparkles, Link, Upload, Dice6, FileImage, Heart, Eye, Mountain, Shield, Swords, Laugh, Coffee, Bomb, Award, Wand2, Rocket, Zap, Building, Crown, Gamepad2, Skull, FileText, GraduationCap, PieChart, Palette, Target, Map, Camera, Star, Sword, Settings } from 'lucide-react';
 import { ConceptData, PillarsData, ParametersData } from '../types';
 import { BuyGemsModal } from "../components/common/BuyGemsModal";
+import { BlueprintEditor } from "./BlueprintEditor";
 
 // Types
 interface Template {
@@ -1292,7 +1293,7 @@ function RefineExperienceParametersPage({ onBack, onNext, pillarsData }: { onBac
 }
 
 // 4단계: Blueprint Quality
-function InitialBlueprintQualityPage({ onBack, onGenerate, parametersData }: { onBack: () => void; onGenerate: (data: any) => void; parametersData: ParametersData }) {
+function InitialBlueprintQualityPage({ onBack, onGenerate, parametersData }: { onBack: () => void; onGenerate: (options: any) => void; parametersData: ParametersData }) {
   const [selectedTier, setSelectedTier] = useState('');
   const [showBuyGemsModal, setShowBuyGemsModal] = useState(false);
   const [showCustomModal, setShowCustomModal] = useState(false);
@@ -1311,13 +1312,12 @@ function InitialBlueprintQualityPage({ onBack, onGenerate, parametersData }: { o
     config.interactiveElements * 20;
   const customCost = calculateCustomCost(customConfig);
 
-  const handleGenerate = () => {
-    const qualityData = {
-      tier: selectedTier,
-      customConfig: selectedTier === 'custom' ? customConfig : null,
-      cost: selectedTier === 'enhanced' ? 299 : selectedTier === 'custom' ? customCost : 0
+  const handleGenerateBlueprintClick = () => {
+    const options = {
+      ...parametersData,
+      // 필요시 conceptData, pillarsData 등 추가
     };
-    onGenerate(qualityData);
+    onGenerate(options);
   };
 
   return (
@@ -1497,7 +1497,7 @@ function InitialBlueprintQualityPage({ onBack, onGenerate, parametersData }: { o
       {/* Generate Button */}
       <div className="absolute bottom-[114px] left-0 right-0 p-4">
         <button
-          onClick={handleGenerate}
+          onClick={handleGenerateBlueprintClick}
           disabled={!selectedTier}
           className={`w-full py-4 px-6 rounded-2xl font-semibold transition-all flex items-center justify-center gap-2 ${
             selectedTier
@@ -1524,6 +1524,41 @@ function InitialBlueprintQualityPage({ onBack, onGenerate, parametersData }: { o
   );
 }
 
+// Gemini 텍스트 생성 함수
+async function fetchGeminiText(prompt: string) {
+  const response = await fetch(
+    'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=AIzaSyDF6eaNo9amQysWrXIgonxmLzZt6j0164c',
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: prompt }] }]
+      })
+    }
+  );
+  const data = await response.json();
+  return data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+}
+// Gemini 이미지 생성 함수 (Base64 → data URL)
+async function fetchGeminiImage(prompt: string) {
+  const response = await fetch(
+    'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro-vision:generateContent?key=AIzaSyDF6eaNo9amQysWrXIgonxmLzZt6j0164c',
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: prompt }] }]
+      })
+    }
+  );
+  const data = await response.json();
+  // base64 or url, 예시: data.candidates[0].content.parts[0].inlineData.data
+  const base64 = data.candidates?.[0]?.content?.parts?.[0]?.inlineData?.data;
+  if (base64) return `data:image/png;base64,${base64}`;
+  // url fallback
+  return data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+}
+
 // Main CreatePage Component
 export const CreatePage: React.FC = () => {
   const [mode, setMode] = useState<'initial' | 'interactive' | 'story' | 'gallery'>('initial');
@@ -1531,6 +1566,25 @@ export const CreatePage: React.FC = () => {
   const [conceptData, setConceptData] = useState<ConceptData | null>(null);
   const [pillarsData, setPillarsData] = useState<PillarsData | null>(null);
   const [parametersData, setParametersData] = useState<ParametersData | null>(null);
+  const [blueprintData, setBlueprintData] = useState<any>(null);
+  const [loading, setLoading] = useState(false);
+  const [progress, setProgress] = useState(0);
+
+  // handleGenerateBlueprintClick 함수 추가
+  const handleGenerateBlueprintClick = (options: any) => {
+    // 간단한 더미 데이터로 테스트
+    const dummyBlueprintData = {
+      story: "A mysterious adventure begins in a forgotten realm...",
+      characters: ["Hero", "Mentor", "Villain"],
+      rules: ["Turn-based combat", "Skill checks", "Inventory management"],
+      settings: "Medieval fantasy world",
+      gmInstructions: "Guide players through the story with descriptive narration",
+      goals: ["Complete the main quest", "Discover hidden secrets", "Defeat the final boss"],
+      imageUrl: "/images/experience/test.png"
+    };
+    setBlueprintData(dummyBlueprintData);
+    setStep(5);
+  };
 
   // 초기 모드 선택 화면
   if (mode === 'initial') {
@@ -1555,9 +1609,37 @@ export const CreatePage: React.FC = () => {
       return <RefineExperienceParametersPage onBack={() => setStep(2)} onNext={(data) => { setParametersData(data); setStep(4); }} pillarsData={pillarsData} />;
     }
     if (step === 4 && conceptData && pillarsData && parametersData) {
-      return <InitialBlueprintQualityPage onBack={() => setStep(3)} onGenerate={(data) => { alert('생성 완료!'); }} parametersData={parametersData} />;
+      return <InitialBlueprintQualityPage
+        onBack={() => setStep(3)}
+        onGenerate={handleGenerateBlueprintClick}
+        parametersData={parametersData}
+      />;
+    }
+    if (step === 5 && blueprintData) {
+      return <BlueprintEditor
+        {...blueprintData}
+        onBack={() => setStep(4)}
+        onLivePreview={() => console.log('Live Preview')}
+        onApply={() => console.log('Apply')}
+      />;
     }
   }
 
+  // 로딩 중에는 LoadingPage 렌더링
+  if (loading) return <LoadingPage progress={progress} />;
+
   return null;
-}; 
+};
+
+// 임시 로딩 페이지
+function LoadingPage({ progress }: { progress: number }) {
+  return (
+    <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/80">
+      <div className="text-white text-xl mb-6">콘텐츠 생성 중...</div>
+      <div className="w-64 h-4 bg-white/10 rounded-full overflow-hidden">
+        <div className="h-full bg-blue-500 transition-all" style={{ width: `${progress}%` }} />
+      </div>
+      <div className="text-white/60 mt-4">{progress}%</div>
+    </div>
+  );
+} 
