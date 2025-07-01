@@ -49,4 +49,80 @@ export interface ChatData {
   isOwner?: boolean;
 }
 
-export type PageType = 'home' | 'create' | 'discover' | 'chat' | 'profile'; 
+export type PageType = 'home' | 'create' | 'discover' | 'chat' | 'profile';
+
+// Create Experience Types
+export interface ConceptData {
+  type: 'prompt' | 'template' | 'link' | 'upload';
+  content: string;
+}
+
+export interface Template {
+  id: string;
+  title: string;
+  description: string;
+  category: string;
+  thumbnail: string;
+  popular?: boolean;
+}
+
+export interface PillarOption {
+  id: string;
+  label: string;
+  icon: React.ReactNode;
+  description: string;
+  recommended?: boolean;
+}
+
+export interface PillarsData {
+  theme: string;
+  genre: string;
+  artStyle: string;
+  framework: string;
+}
+
+export interface ExperienceStyleOption {
+  id: string;
+  title: string;
+  description: string;
+  icon: React.ReactNode;
+  previewImage: string;
+  recommended?: boolean;
+}
+
+export interface ParametersData {
+  experienceStyle: string;
+  difficulty: number;
+  nsfwEnabled: boolean;
+}
+
+export interface UserAccount {
+  gems: number;
+  hasCreatorSubscription: boolean;
+  subscriptionExpiry?: string;
+}
+
+export interface CustomFoundationConfig {
+  characterPortraits: number;
+  environmentArt: number;
+  audioTracks: number;
+  storyBeats: number;
+  interactiveElements: number;
+}
+
+export interface SubscriptionPlan {
+  id: string;
+  name: string;
+  price: string;
+  gems: number;
+  emoji: string;
+  popular?: boolean;
+}
+
+export interface OneTimePack {
+  id: string;
+  name: string;
+  price: string;
+  gems: number;
+  bonus?: boolean;
+} 

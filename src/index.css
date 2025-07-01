@@ -2,16 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
-/* 커스텀 스타일 */
+/* Custom scrollbar styles */
 .scrollbar-hide {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
 }
 
 .scrollbar-hide::-webkit-scrollbar {
-  display: none;
+  display: none;  /* Safari and Chrome */
 }
 
+/* Line clamp utility */
 .line-clamp-2 {
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -19,26 +20,25 @@
   overflow: hidden;
 }
 
-/* 모바일 앱 배경 그라데이션 */
+/* App background */
 .app-background {
-  background: radial-gradient(
-    ellipse at 281px 235.5px,
-    rgba(0, 0, 0, 1) 0%,
-    rgba(5, 4, 12, 1) 5%,
-    rgba(9, 8, 25, 1) 10%,
-    rgba(19, 17, 50, 1) 19%,
-    rgba(28, 25, 75, 1) 28%,
-    rgba(38, 33, 100, 1) 38%,
-    rgba(62, 57, 133, 1) 56%,
-    rgba(86, 80, 167, 1) 75%,
-    rgba(60, 44, 121, 1) 87%,
-    rgba(47, 26, 97, 1) 94%,
-    rgba(34, 8, 74, 1) 100%
+  background: radial-gradient(ellipse at 281px 235.5px, 
+    rgba(0,0,0,1) 0%, 
+    rgba(5,4,12,1) 5%, 
+    rgba(9,8,25,1) 10%, 
+    rgba(19,17,50,1) 19%, 
+    rgba(28,25,75,1) 28%, 
+    rgba(38,33,100,1) 38%, 
+    rgba(62,57,133,1) 56%, 
+    rgba(86,80,167,1) 75%, 
+    rgba(60,44,121,1) 87%, 
+    rgba(47,26,97,1) 94%, 
+    rgba(34,8,74,1) 100%
   );
 }
 
 .app-overlay {
   background: linear-gradient(90deg, rgba(17, 76, 255, 0.2) 0%, rgba(17, 76, 255, 0.2) 100%),
-              linear-gradient(135deg, rgba(0, 13, 63, 0.2) 0%, transparent 50%);
+              linear-gradient(135deg, rgba(0,13,63,0.2) 0%, transparent 50%);
   backdrop-filter: blur(25px);
 } 
