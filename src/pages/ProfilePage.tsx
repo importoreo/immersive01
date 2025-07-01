@@ -346,7 +346,7 @@ function SettingsModal({ userProfile, experiences, onClose, onSave }: SettingsMo
 
   return (
     <div className="absolute inset-0 bg-black/40 backdrop-blur-lg z-50 flex items-start justify-center pt-16">
-      <div className="bg-white/10 backdrop-blur-xl rounded-2xl border border-white/20 w-[360px] max-h-[700px] overflow-hidden">
+      <div className="bg-[#18181c] backdrop-blur-xl rounded-2xl border border-white/20 w-[360px] max-h-[700px] overflow-hidden">
         <div className="flex items-center justify-between p-4 border-b border-white/20">
           <button onClick={onClose} className="text-white/60 hover:text-white">
             <ChevronLeft size={24} />

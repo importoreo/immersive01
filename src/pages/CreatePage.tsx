@@ -233,24 +233,17 @@ function CoreConceptPage({ onBack, onNext }: CoreConceptPageProps) {
 
       {/* Main Content */}
       <div className="absolute top-[155px] left-0 right-0 bottom-[180px]">
-        {/* AI Insight */}
-        <div className="bg-blue-500/10 rounded-2xl p-4 border border-blue-400/20 mb-6 mx-4">
-          <div className="flex items-start gap-3">
-            <Bot size={20} className="text-blue-400 mt-0.5 flex-shrink-0" />
-            <div>
-              <p className="text-blue-400 font-medium text-sm">AI Recommendations</p>
-              <p className="text-blue-300/80 text-sm">
-                Based on your concept, I've pre-selected pillars that match your vision. Feel free to adjust them!
-              </p>
-            </div>
-          </div>
+        {/* Title & Subtitle */}
+        <div className="px-6 pt-2 pb-4">
+          <h2 className="text-white text-2xl font-bold mb-1">What is the core idea behind your world?</h2>
+          <p className="text-white/60 text-base">Describe on the prompt bar or choose template</p>
         </div>
 
         {/* Tab Navigation */}
-        <div className="flex bg-white/5 rounded-2xl p-1 border border-white/10 mb-6">
+        <div className="flex bg-white/5 rounded-2xl p-1 border border-white/10 mb-5 mx-4">
           <button
             onClick={() => setActiveTab('prompt')}
-            className={`flex-1 py-3 px-4 rounded-xl text-sm font-medium transition-colors ${
+            className={`flex-1 px-2 py-2 rounded-xl text-sm font-medium transition-colors focus:outline-none ${
               activeTab === 'prompt'
                 ? 'bg-white/10 text-white'
                 : 'text-white/60 hover:text-white'
@@ -263,7 +256,7 @@ function CoreConceptPage({ onBack, onNext }: CoreConceptPageProps) {
           </button>
           <button
             onClick={() => setActiveTab('template')}
-            className={`flex-1 py-3 px-4 rounded-xl text-sm font-medium transition-colors ${
+            className={`flex-1 px-2 py-2 rounded-xl text-sm font-medium transition-colors focus:outline-none ${
               activeTab === 'template'
                 ? 'bg-white/10 text-white'
                 : 'text-white/60 hover:text-white'
@@ -276,7 +269,7 @@ function CoreConceptPage({ onBack, onNext }: CoreConceptPageProps) {
           </button>
           <button
             onClick={() => setActiveTab('link')}
-            className={`flex-1 py-3 px-4 rounded-xl text-sm font-medium transition-colors ${
+            className={`flex-1 px-2 py-2 rounded-xl text-sm font-medium transition-colors focus:outline-none ${
               activeTab === 'link'
                 ? 'bg-white/10 text-white'
                 : 'text-white/60 hover:text-white'
@@ -289,7 +282,7 @@ function CoreConceptPage({ onBack, onNext }: CoreConceptPageProps) {
           </button>
           <button
             onClick={() => setActiveTab('upload')}
-            className={`flex-1 py-3 px-4 rounded-xl text-sm font-medium transition-colors ${
+            className={`flex-1 px-2 py-2 rounded-xl text-sm font-medium transition-colors focus:outline-none ${
               activeTab === 'upload'
                 ? 'bg-white/10 text-white'
                 : 'text-white/60 hover:text-white'
@@ -303,22 +296,19 @@ function CoreConceptPage({ onBack, onNext }: CoreConceptPageProps) {
         </div>
 
         {/* Tab Content */}
-        <div className="flex-1 overflow-y-auto">
+        <div className="flex-1 overflow-y-auto px-4">
           {activeTab === 'prompt' && (
             <div className="space-y-4">
-              <div>
-                <textarea
-                  value={promptText}
-                  onChange={(e) => setPromptText(e.target.value)}
-                  placeholder="Describe the world or story you want to create..."
-                  className="w-full h-40 bg-white/5 border border-white/20 rounded-2xl px-4 py-4 text-white placeholder-white/40 focus:outline-none focus:border-blue-400 resize-none"
-                />
-              </div>
-              
+              <textarea
+                value={promptText}
+                onChange={(e) => setPromptText(e.target.value)}
+                placeholder="Describe the world or story you want to create..."
+                className="w-full h-32 bg-white/5 border border-white/20 rounded-2xl px-4 py-4 text-white placeholder-white/40 focus:outline-none focus:border-blue-400 resize-none mb-3"
+              />
               {/* Generate Random Button */}
               <button
                 onClick={handleGenerateRandom}
-                className="w-full py-4 px-6 bg-white/5 border border-white/20 rounded-2xl text-white/80 hover:text-white hover:bg-white/10 transition-all flex items-center justify-center gap-3"
+                className="w-full py-3 px-4 bg-white/5 border border-white/20 rounded-2xl text-white/80 hover:text-white hover:bg-white/10 transition-all flex items-center justify-center gap-2"
               >
                 <Dice6 size={20} />
                 Generate Random
@@ -924,34 +914,186 @@ function DefineCorePillarsPage({ onBack, onNext, conceptData }: { onBack: () => 
           </div>
         </div>
 
-        {/* Pillar Carousel Sections */}
-        <PillarCarouselSection
-          title="Theme"
-          options={themeOptions}
-          selectedValue={selectedTheme}
-          onSelect={setSelectedTheme}
-        />
+        {/* Tab Navigation */}
+        <div className="flex bg-white/5 rounded-2xl p-1 border border-white/10 mb-5 mx-4">
+          <button
+            onClick={() => setActiveTab('prompt')}
+            className={`flex-1 px-2 py-2 rounded-xl text-sm font-medium transition-colors focus:outline-none ${
+              activeTab === 'prompt'
+                ? 'bg-white/10 text-white'
+                : 'text-white/60 hover:text-white'
+            }`}
+          >
+            <div className="flex items-center justify-center gap-2">
+              <PenTool size={16} />
+              Prompt
+            </div>
+          </button>
+          <button
+            onClick={() => setActiveTab('template')}
+            className={`flex-1 px-2 py-2 rounded-xl text-sm font-medium transition-colors focus:outline-none ${
+              activeTab === 'template'
+                ? 'bg-white/10 text-white'
+                : 'text-white/60 hover:text-white'
+            }`}
+          >
+            <div className="flex items-center justify-center gap-2">
+              <Sparkles size={16} />
+              Template
+            </div>
+          </button>
+          <button
+            onClick={() => setActiveTab('link')}
+            className={`flex-1 px-2 py-2 rounded-xl text-sm font-medium transition-colors focus:outline-none ${
+              activeTab === 'link'
+                ? 'bg-white/10 text-white'
+                : 'text-white/60 hover:text-white'
+            }`}
+          >
+            <div className="flex items-center justify-center gap-2">
+              <Link size={16} />
+              Link
+            </div>
+          </button>
+          <button
+            onClick={() => setActiveTab('upload')}
+            className={`flex-1 px-2 py-2 rounded-xl text-sm font-medium transition-colors focus:outline-none ${
+              activeTab === 'upload'
+                ? 'bg-white/10 text-white'
+                : 'text-white/60 hover:text-white'
+            }`}
+          >
+            <div className="flex items-center justify-center gap-2">
+              <Upload size={16} />
+              Upload
+            </div>
+          </button>
+        </div>
 
-        <PillarCarouselSection
-          title="Genre"
-          options={genreOptions}
-          selectedValue={selectedGenre}
-          onSelect={setSelectedGenre}
-        />
+        {/* Tab Content */}
+        <div className="flex-1 overflow-y-auto">
+          {activeTab === 'prompt' && (
+            <div className="space-y-4">
+              <div>
+                <textarea
+                  value={promptText}
+                  onChange={(e) => setPromptText(e.target.value)}
+                  placeholder="Describe the world or story you want to create..."
+                  className="w-full h-40 bg-white/5 border border-white/20 rounded-2xl px-4 py-4 text-white placeholder-white/40 focus:outline-none focus:border-blue-400 resize-none"
+                />
+              </div>
+              
+              {/* Generate Random Button */}
+              <button
+                onClick={handleGenerateRandom}
+                className="w-full py-4 px-6 bg-white/5 border border-white/20 rounded-2xl text-white/80 hover:text-white hover:bg-white/10 transition-all flex items-center justify-center gap-3"
+              >
+                <Dice6 size={20} />
+                Generate Random
+              </button>
+            </div>
+          )}
 
-        <PillarCarouselSection
-          title="Art Style"
-          options={artStyleOptions}
-          selectedValue={selectedArtStyle}
-          onSelect={setSelectedArtStyle}
-        />
+          {activeTab === 'template' && (
+            <div className="space-y-4">
+              <div className="grid grid-cols-1 gap-3">
+                {templates.map((template) => (
+                  <div
+                    key={template.id}
+                    onClick={() => setSelectedTemplate(template.id)}
+                    className={`relative p-4 rounded-xl cursor-pointer transition-all ${
+                      selectedTemplate === template.id
+                        ? 'border-2 border-blue-400 bg-white/10'
+                        : 'border border-white/20 bg-white/5 hover:bg-white/10'
+                    }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <div 
+                        className="w-12 h-12 rounded-lg flex-shrink-0"
+                        style={{
+                          backgroundImage: template.thumbnail,
+                          backgroundSize: 'cover',
+                          backgroundPosition: 'center',
+                        }}
+                      />
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-1">
+                          <h4 className="text-white font-medium">{template.title}</h4>
+                          {template.popular && (
+                            <span className="bg-orange-500/20 text-orange-400 text-xs px-2 py-0.5 rounded-full border border-orange-400/20">
+                              Popular
+                            </span>
+                          )}
+                        </div>
+                        <p className="text-white/60 text-sm mb-1">{template.description}</p>
+                        <span className="text-white/50 text-xs">{template.category}</span>
+                      </div>
+                    </div>
+                    {selectedTemplate === template.id && (
+                      <div className="absolute top-3 right-3">
+                        <div className="w-5 h-5 bg-blue-400 rounded-full flex items-center justify-center">
+                          <div className="w-2 h-2 bg-white rounded-full"></div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
 
-        <PillarCarouselSection
-          title="Framework"
-          options={frameworkOptions}
-          selectedValue={selectedFramework}
-          onSelect={setSelectedFramework}
-        />
+          {activeTab === 'link' && (
+            <div className="space-y-4">
+              <div>
+                <input
+                  type="url"
+                  value={linkUrl}
+                  onChange={(e) => setLinkUrl(e.target.value)}
+                  placeholder="https://example.com/inspiration"
+                  className="w-full bg-white/5 border border-white/20 rounded-2xl px-4 py-4 text-white placeholder-white/40 focus:outline-none focus:border-blue-400"
+                />
+              </div>
+              <div className="bg-white/5 rounded-xl p-4 border border-white/10">
+                <h3 className="text-white font-medium mb-2">🔗 Supported link types:</h3>
+                <ul className="text-white/70 text-sm space-y-1">
+                  <li>• Image galleries or Pinterest boards</li>
+                  <li>• Video references or YouTube links</li>
+                  <li>• Game screenshots or concept art</li>
+                  <li>• Architecture or environment references</li>
+                </ul>
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'upload' && (
+            <div className="space-y-4">
+              <div className="border-2 border-dashed border-white/20 rounded-2xl p-8 text-center hover:border-white/40 transition-colors cursor-pointer">
+                <div className="flex flex-col items-center gap-3">
+                  <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center">
+                    <FileImage size={24} className="text-white/60" />
+                  </div>
+                  <div>
+                    <p className="text-white font-medium mb-1">Drop files here or click to browse</p>
+                    <p className="text-white/60 text-sm">Supports images, documents, and concept art</p>
+                  </div>
+                </div>
+              </div>
+              <div className="bg-white/5 rounded-xl p-4 border border-white/10">
+                <h3 className="text-white font-medium mb-2">📁 Supported formats:</h3>
+                <div className="grid grid-cols-2 gap-2 text-white/70 text-sm">
+                  <div>
+                    <p className="font-medium text-white/80 mb-1">Images:</p>
+                    <p>JPG, PNG, GIF, WebP</p>
+                  </div>
+                  <div>
+                    <p className="font-medium text-white/80 mb-1">Documents:</p>
+                    <p>PDF, TXT, DOC</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Next Button - Always enabled now */}
