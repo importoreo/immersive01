@@ -216,7 +216,7 @@ function CoreConceptPage({ onBack, onNext }: CoreConceptPageProps) {
   return (
     <>
       {/* Status Bar */}
-      <StatusBar />
+      {/* <StatusBar /> */}
       
       {/* Header */}
       <div className="absolute top-[75px] left-0 right-0 px-4">
@@ -884,7 +884,7 @@ function DefineCorePillarsPage({ onBack, onNext, conceptData }: { onBack: () => 
   return (
     <>
       {/* Status Bar */}
-      <StatusBar />
+      {/* <StatusBar /> */}
       
       {/* Header */}
       <div className="absolute top-[75px] left-0 right-0 px-4">
@@ -1229,7 +1229,7 @@ function RefineExperienceParametersPage({ onBack, onNext, pillarsData }: { onBac
   return (
     <>
       {/* Status Bar */}
-      <StatusBar />
+      {/* <StatusBar /> */}
       
       {/* Header */}
       <div className="absolute top-[75px] left-0 right-0 px-4">
@@ -1433,7 +1433,7 @@ function InitialBlueprintQualityPage({ onBack, onGenerate, parametersData }: { o
   return (
     <>
       {/* Status Bar */}
-      <StatusBar />
+      {/* <StatusBar /> */}
       {/* Gem Info & Buy Gems */}
       <div className="absolute top-[155px] left-0 right-0 px-4">
         <div className="bg-white/5 rounded-xl p-3 border border-white/10 mb-6 flex items-center justify-between">
