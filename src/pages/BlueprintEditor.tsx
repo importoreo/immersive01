@@ -119,7 +119,7 @@ export const BlueprintEditor: React.FC<BlueprintEditorProps> = ({
         </div>
       </div>
       {/* 카드 리스트 (이전 버전 카드 스타일) */}
-      <div className="absolute top-[160px] left-0 right-0 bottom-[100px] overflow-y-auto px-4 space-y-6 pb-60">
+      <div className="absolute top-[160px] left-0 right-0 bottom-[60px] overflow-y-auto px-4 space-y-6 pb-32">
         {CARD_LIST.map((card) => (
           <div
             key={card.key}

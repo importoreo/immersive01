@@ -52,18 +52,19 @@ const ExperienceDetailModal: React.FC<ExperienceDetailModalProps> = ({
   };
 
   return (
-    <div className="absolute inset-0 bg-black/20 backdrop-blur-lg z-50 flex items-start justify-center pt-16">
-      <div className="bg-[#18181c] mt-20 backdrop-blur-xl rounded-2xl border border-white/20 w-full max-w-[360px] max-h-[600px] overflow-y-auto">
+    <div className="absolute inset-0 bg-black/20 backdrop-blur-lg z-50 flex items-center justify-center">
+      <div className="bg-[#18181c] mt-32 backdrop-blur-xl rounded-2xl border border-white/20 w-full max-w-[360px] max-h-[600px] overflow-y-auto">
         <div className="flex items-center justify-between p-4 border-b border-white/20">
+          <button onClick={onClose} className="text-white/60 hover:text-white transition-colors" aria-label="닫기">
+            <Icon name="FiChevronLeft" size={24} />
+          </button>
           <div className="flex items-center gap-2">
             {getTypeIcon(experience.type)}
             <span className="text-white/80 text-sm capitalize">
               {experience.type.replace('-', ' ')}
             </span>
           </div>
-          <button onClick={onClose} className="text-white/60 hover:text-white">
-            <Icon name="FiX" size={24} />
-          </button>
+          <div className="w-6" />
         </div>
 
         <div 
