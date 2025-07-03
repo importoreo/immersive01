@@ -41,7 +41,7 @@ const CARD_LIST = [
   },
 ];
 
-// GM Setting을 Rules & Logics 바로 아래로 이동
+// Move GM Setting right after Rules & Logics
 CARD_LIST.splice(3, 0, CARD_LIST.pop());
 
 export const BlueprintEditor: React.FC<BlueprintEditorProps> = ({

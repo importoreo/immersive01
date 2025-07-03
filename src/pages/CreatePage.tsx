@@ -1635,7 +1635,7 @@ export const CreatePage: React.FC = () => {
 function LoadingPage({ progress }: { progress: number }) {
   return (
     <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/80">
-      <div className="text-white text-xl mb-6">콘텐츠 생성 중...</div>
+      <div className="text-white text-xl mb-6">Generating content...</div>
       <div className="w-64 h-4 bg-white/10 rounded-full overflow-hidden">
         <div className="h-full bg-blue-500 transition-all" style={{ width: `${progress}%` }} />
       </div>

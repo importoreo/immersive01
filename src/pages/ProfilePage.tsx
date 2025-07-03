@@ -300,7 +300,7 @@ function SettingsModal({ userProfile, experiences, onClose, onSave }: SettingsMo
                 </div>
               </div>
 
-              {/* 2x2 통계 카드 */}
+              {/* 2x2 statistics card */}
               <div className="grid grid-cols-2 gap-3">
                 <div className="bg-white/5 rounded-lg p-3 border border-white/10 flex flex-col items-start">
                   <div className="flex items-center gap-2 mb-1">
