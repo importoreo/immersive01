@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Settings, Play, Star, Image, Headphones, Bot, ChevronLeft, X, Heart, MessageCircle, Share, Bookmark, Save, DollarSign, Zap, FileText, TrendingUp, BarChart2, MoreHorizontal } from 'lucide-react';
+import { Settings, Play, Star, Image, Headphones, Bot, ChevronLeft, X, Heart, MessageCircle, Share, Bookmark, Save, DollarSign, Zap, FileText, TrendingUp, BarChart2, MoreHorizontal, LogOut } from 'lucide-react';
 import { ExperienceData, UserProfile } from '../types';
-import ExperienceDetailModal from '../../immersive-ai-app/src/components/experience/ExperienceDetailModal';
+import ExperienceDetailModal from '../components/common/ExperienceDetailModal';
 
 // Mock data
 const mockUserProfile: UserProfile = {
@@ -548,19 +548,19 @@ export const ProfilePage: React.FC = () => {
         </div>
       </div>
 
-      {selectedExperience && (
-        <ExperienceDetailModal
-          experience={selectedExperience}
-          onClose={() => setSelectedExperience(null)}
-        />
-      )}
-
       {showSettings && (
         <SettingsModal
           userProfile={userProfile}
           experiences={mockExperiences}
           onClose={() => setShowSettings(false)}
           onSave={setUserProfile}
+        />
+      )}
+
+      {selectedExperience && (
+        <ExperienceDetailModal
+          experience={selectedExperience}
+          onClose={() => setSelectedExperience(null)}
         />
       )}
     </>

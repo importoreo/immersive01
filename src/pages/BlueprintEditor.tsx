@@ -150,8 +150,8 @@ export const BlueprintEditor: React.FC<BlueprintEditorProps> = ({
         {/* Dummy invisible card for scrollability, same hierarchy as other cards */}
         <div className="rounded-2xl bg-white/5 border border-white/10 shadow-lg p-6 flex flex-col opacity-0 pointer-events-none select-none" />
       </div>
-      {/* 하단 버튼 (이전 버전 스타일) */}
-      <div className="absolute bottom-[114px] left-0 right-0 p-4 flex flex-row gap-2">
+      {/* 하단 버튼 (Live Preview, Apply) */}
+      <div className="absolute bottom-[170px] left-0 right-0 p-4 flex flex-row gap-2 z-30">
         <button
           onClick={onLivePreview}
           className="w-1/2 py-4 px-6 rounded-2xl font-semibold transition-all flex items-center justify-center gap-2 bg-gradient-to-r from-purple-500 to-blue-500 text-white"
